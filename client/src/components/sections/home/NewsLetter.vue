@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="newsletter"
-    class="bg-whtie fixed left-0 top-0 flex h-screen w-full items-center justify-center backdrop-blur-[1px]"
+    class="bg-whtie fixed left-0 top-0 flex h-screen w-full items-center justify-center backdrop-blur-[1px] z-50"
   >
     <div
       class="flex h-96 flex-col rounded-xl shadow-2xl min-[320px]:w-full sm:w-7/12 lg:w-6/12 xl:w-4/12"
