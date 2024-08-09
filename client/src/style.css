@@ -199,6 +199,9 @@ html {
     .updateBackButton {
       @apply fixed -left-5 top-20;
     }
+    #recipesViewMainSection {
+      @apply w-full;
+    }
   }
 
   /* ===================== @ Tablet */
@@ -309,6 +312,9 @@ html {
     }
     .updateBackButton {
       @apply absolute left-0 top-5;
+    }
+    #recipesViewMainSection {
+      @apply w-full;
     }
   }
 
