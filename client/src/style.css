@@ -1,0 +1,532 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navBar {
+  font-family: "Architects Daughter", cursive;
+  z-index: 5;
+}
+
+.navUl li:hover::first-letter {
+  color: black;
+  font-size: 30px;
+}
+
+.welcomeMessage {
+  font-family: "Architects Daughter", cursive;
+}
+
+.sectorTitle {
+  font-family: "Architects Daughter", cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer components {
+  body {
+    @apply m-0;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  .navUl li {
+    @apply cursor-pointer text-white;
+  }
+
+  .navBar {
+    @apply fixed flex justify-between;
+  }
+
+  .navMenu {
+    @apply flex justify-between;
+  }
+
+  .navBarLogo {
+    @apply flex justify-between py-2;
+  }
+
+  .myLogo {
+    @apply flex items-center font-black;
+  }
+
+  .navUl {
+    @apply flex items-center text-xl;
+  }
+
+  fieldset p {
+    @apply font-semibold;
+  }
+
+  fieldset input,
+  fieldset select,
+  fieldset textarea {
+    @apply w-full rounded-md ring-2 ring-black focus:outline-none focus:ring-orange-500;
+  }
+  fieldset input,
+  fieldset select {
+    @apply p-2;
+  }
+  textarea {
+    @apply resize-none p-1;
+  }
+
+  /* ======================= @ Cellphone */
+  @media not all and (min-width: 640px) {
+    .navMenu {
+      @apply flex-col;
+    }
+    .navUl {
+      @apply absolute z-10 m-0 w-screen flex-col bg-orange-500 transition duration-500 ease-in;
+    }
+    .myLogo {
+      @apply text-3xl;
+    }
+
+    .navBarLogo {
+      @apply z-20 bg-orange-500 px-4;
+    }
+    .homeSection {
+      @apply w-screen p-2;
+    }
+    .logoImage {
+      @apply h-24;
+    }
+    .homeDescription {
+      @apply text-[10px];
+    }
+
+    section:first-of-type {
+      @apply mt-0;
+    }
+
+    hr {
+      @apply w-[80%];
+    }
+
+    .randomRecipeCard {
+      @apply h-60 w-36;
+    }
+    .randomCardTitle {
+      @apply text-[10px];
+    }
+    .randomMenuDiv {
+      @apply flex-wrap gap-2;
+    }
+
+    .sectorTitle {
+      @apply text-2xl;
+    }
+    .randomMenuButton {
+      @apply py-1 text-xs;
+    }
+
+    .categoryThumb {
+      @apply w-24;
+    }
+
+    .categoryTitle {
+      @apply text-xs;
+    }
+    .upButton {
+      @apply bottom-3 right-3 h-10 w-10 text-2xl;
+    }
+    .backButton {
+      @apply h-10 w-10 text-2xl ring-8 ring-orange-100;
+    }
+
+    #mainDiv {
+      @apply w-11/12;
+    }
+    #mealHeader {
+      @apply grid-rows-3;
+    }
+    #headerFirstDiv {
+      @apply row-span-2;
+    }
+    #headerImg {
+      @apply h-96 rounded-t-xl;
+    }
+    #mealSection {
+      @apply grid-rows-5;
+    }
+    #mealSection article:first-child {
+      @apply row-span-2;
+    }
+    #mealSection article:last-child {
+      @apply row-span-3;
+    }
+
+    .mealHeaderTitle {
+      @apply text-2xl;
+    }
+    .mealHeaderSubtitle {
+      @apply text-xs;
+    }
+    #back_button {
+      @apply -left-5 top-64;
+    }
+    #sourceLink {
+      @apply truncate text-sm;
+    }
+    #categoryViewImg {
+      @apply w-72;
+    }
+    #recipesHeader {
+      @apply w-full;
+    }
+    #recipesSearchMessage {
+      @apply text-3xl;
+    }
+    #headerLabel {
+      @apply min-w-72;
+    }
+    #allFeatureBackButton {
+      @apply absolute mt-20;
+    }
+    .gapSize {
+      @apply gap-5;
+    }
+    .sectionSize {
+      @apply w-full;
+    }
+    #yourRecipeCard {
+      @apply h-[530px];
+    }
+    .updateBackButton {
+      @apply fixed -left-5 top-20;
+    }
+  }
+
+  /* ===================== @ Tablet */
+  @media (min-width: 768px) {
+    .navBar {
+      @apply h-16 w-screen bg-orange-500;
+    }
+
+    .navMenu {
+      @apply w-full px-5;
+    }
+
+    .navUl {
+      @apply gap-5;
+    }
+
+    .myLogo {
+      @apply text-3xl;
+    }
+
+    .randomMenuDiv {
+      @apply gap-6;
+    }
+    .randomMenuButton {
+      @apply py-2;
+    }
+    .randomRecipeCard {
+      @apply h-64 w-40;
+    }
+    .homeSection {
+      @apply w-full py-6;
+    }
+    .randomCardTitle {
+      @apply text-xs;
+    }
+    .logoImage {
+      @apply h-40;
+    }
+    .homeWelcome {
+      @apply text-3xl;
+    }
+    .sectorTitle {
+      @apply text-3xl;
+    }
+    hr {
+      @apply w-[80%];
+    }
+    .categoryThumb {
+      @apply w-28;
+    }
+
+    .categoryTitle {
+      @apply text-xs;
+    }
+
+    .upButton {
+      @apply bottom-3 right-3 h-11 w-11 text-2xl;
+    }
+    .backButton {
+      @apply absolute left-3 top-20 h-11 w-11 text-2xl ring-8 ring-orange-100;
+    }
+    #mainDiv {
+      @apply w-10/12;
+    }
+
+    #headerImg {
+      @apply h-96 rounded-t-xl;
+    }
+
+    .backButton {
+      @apply h-16 w-16 text-4xl;
+    }
+    #back_button {
+      @apply left-5 top-48;
+    }
+
+    .mealHeaderTitle {
+      @apply text-4xl;
+    }
+
+    #sourceLink {
+      @apply truncate text-base;
+    }
+    #recipesSearchMessage {
+      @apply text-4xl;
+    }
+    #headerLabel {
+      @apply w-96;
+    }
+    #allFeatureBackButton {
+      @apply absolute mt-5;
+    }
+    .gapSize {
+      @apply gap-6;
+    }
+
+    .paddingSize {
+      @apply p-6;
+    }
+    .sectionSize {
+      @apply w-full;
+    }
+    #yourRecipeCard {
+      @apply h-[830px];
+    }
+    #addRecipes {
+      @apply w-8/12;
+    }
+    .updateBackButton {
+      @apply absolute left-0 top-5;
+    }
+  }
+
+  /* ===================== @ laptop */
+  @media (min-width: 1024px) {
+    .navBar {
+      @apply h-16 w-screen bg-orange-500;
+    }
+
+    .navUl {
+      @apply gap-12 text-2xl;
+    }
+    .navMenu {
+      @apply w-full px-14;
+    }
+
+    .myLogo {
+      @apply text-4xl;
+    }
+
+    .homeSection {
+      @apply w-11/12;
+    }
+    .randomRecipeCard {
+      @apply h-[350px] w-56;
+    }
+    .randomMenuButton {
+      @apply py-2;
+    }
+    .randomCardTitle {
+      @apply text-sm;
+    }
+    .randomMenuDiv {
+      @apply gap-8 px-5;
+    }
+    .logoImage {
+      @apply h-44;
+    }
+    .homeWelcome {
+      @apply text-4xl;
+    }
+    .sectorTitle {
+      @apply text-4xl;
+    }
+
+    .categoryThumb {
+      @apply w-48;
+    }
+
+    .categoryTitle {
+      @apply text-sm;
+    }
+
+    #mainDiv {
+      @apply w-10/12;
+    }
+
+    #back_button {
+      @apply fixed left-5 top-5;
+    }
+
+    .upButton {
+      @apply bottom-3 right-3 h-11 w-11 text-2xl;
+    }
+
+    .backButton {
+      @apply absolute left-0 top-20 h-11 w-11 text-2xl shadow-[0px_0px_4px_4px_rgba(0,0,0,0.3)] ring-0;
+    }
+    #mealHeader {
+      @apply grid-cols-7;
+    }
+    #headerFirstDiv {
+      @apply col-span-3;
+    }
+
+    #headerSecondDiv {
+      @apply col-span-4 rounded-bl-xl rounded-tr-xl;
+    }
+
+    #headerImg {
+      @apply rounded-br-xl rounded-tl-xl rounded-tr-none;
+    }
+
+    #mealSection {
+      @apply grid-cols-6;
+    }
+    #mealSection article:first-child {
+      @apply col-span-2 rounded-r-xl;
+    }
+    #mealSection article:last-child {
+      @apply col-span-4 rounded-l-xl;
+    }
+
+    .mealHeaderTitle {
+      @apply text-4xl;
+    }
+
+    #headerImg {
+      @apply h-72;
+    }
+    #sourceLink {
+      @apply text-lg;
+    }
+    #recipesViewMainSection {
+      @apply w-10/12;
+    }
+    #recipesHeader {
+      @apply w-full;
+    }
+    #recipesSearchMessage {
+      @apply text-5xl;
+    }
+    .featuresDiv {
+      @apply w-10/12;
+    }
+    fieldset p {
+      @apply text-xl;
+    }
+    fieldset legend {
+      @apply px-2 text-3xl font-bold;
+    }
+    .allFeatureBackButton {
+      @apply pl-8;
+    }
+    .gapSize {
+      @apply gap-8;
+    }
+    .paddingSize {
+      @apply p-2;
+    }
+    .sectionSize {
+      @apply w-10/12;
+    }
+    #yourRecipeCard {
+      @apply h-[1000px];
+    }
+    #addRecipes {
+      @apply w-6/12;
+    }
+    .updateBackButton {
+      @apply fixed left-5 top-5;
+    }
+  }
+
+  /* ====================== @ desktop */
+  @media (min-width: 1280px) {
+    .navMenu {
+      @apply px-14;
+    }
+    .randomRecipeCard {
+      @apply h-[330px] w-56;
+    }
+    .randomCardTitle {
+      @apply h-[20%];
+    }
+    .randomMenuButton {
+      @apply py-2;
+    }
+
+    .homeSection {
+      @apply w-9/12;
+    }
+
+    .randomMenuDiv {
+      @apply gap-10;
+    }
+
+    .logoImage {
+      @apply h-52;
+    }
+
+    .homeWelcome {
+      @apply text-5xl;
+    }
+
+    .sectorTitle {
+      @apply text-5xl;
+    }
+    .categoryThumb {
+      @apply w-52;
+    }
+
+    .categoryThumb {
+      @apply w-52;
+    }
+
+    .categoryTitle {
+      @apply text-base;
+    }
+    #mainDiv {
+      @apply w-8/12;
+    }
+    #sourceLink {
+      @apply text-xl;
+    }
+    #recipesViewMainSection {
+      @apply w-9/12;
+    }
+    #recipesHeader {
+      @apply w-full;
+    }
+    .featuresDiv {
+      @apply w-9/12;
+    }
+    .gapSize {
+      @apply gap-10;
+    }
+    .paddingSize {
+      @apply p-10;
+    }
+    .sectionSize {
+      @apply w-9/12;
+    }
+    #yourRecipeCard {
+      @apply h-[1230px];
+    }
+    #addRecipes {
+      @apply w-4/12;
+    }
+  }
+}
