@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-col items-center gap-5">
+    <div class="flex flex-col items-center min-[320px]:w-full md:w-auto gap-5">
       <p class="welcomeMessage text-4xl">{{ countrySelected }}</p>
       <img
         :src="`/assets/${countryImg}.png`"
