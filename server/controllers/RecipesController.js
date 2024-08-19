@@ -82,7 +82,7 @@ export default class API {
         instructions,
         image,
       });
-      res.status(200).json({ success: "Recipe updated." });
+      return res.status(200).json({ success: "Recipe updated." });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
