@@ -50,6 +50,8 @@ function uploadFile(event) {
   formData.image = event.target.files[0];
 }
 
+const creating = ref(false);
+
 const handleSubmit = async () => {
   if (
     !formData.name ||
@@ -65,6 +67,7 @@ const handleSubmit = async () => {
 
     if (!codename.value) {
       try {
+        creating.value = true;
         const res = await axios.post(
           "/foodnouvaeu/api/add",
           {
@@ -87,6 +90,7 @@ const handleSubmit = async () => {
       }
     } else {
       try {
+        creating.value = true;
         const res = await axios.post(
           "/foodnouvaeu/api/add",
           {
@@ -112,6 +116,14 @@ const handleSubmit = async () => {
 </script>
 
 <template>
+  <div
+    class="fixed w-screen h-screen bg-white top-0 left-0 flex items-center justify-center"
+    v-show="creating"
+  >
+    <i
+      class="bi bi-egg-fried text-5xl absolute text-orange-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 after:animate-spin-slow after:absolute after:border-8 after:w-20 after:h-20 after:left-0 after:top-0 px-4 pt-3 after:rounded-full after:border-dotted after:border-orange-500"
+    ></i>
+  </div>
   <main
     class="flex xs:pt-20 xs:w-screen md:w-auto lg:h-auto items-center justify-center bg-orange-100"
   >
