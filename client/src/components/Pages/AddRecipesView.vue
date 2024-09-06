@@ -57,18 +57,15 @@ const handleSubmit = async () => {
     !formData.categories ||
     !formData.ingredients ||
     !formData.instructions ||
-    !formData.image ||
-    !formData.poster
+    !formData.image
   ) {
     allRequired.value = true;
   } else {
     allRequired.value = false;
-  }
 
-  if (!codename.value) {
-    try {
-      const res = await axios
-        .post(
+    if (!codename.value) {
+      try {
+        const res = await axios.post(
           "/foodnouvaeu/api/add",
           {
             name: formData.name,
@@ -82,22 +79,15 @@ const handleSubmit = async () => {
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
-        )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      localStorage.setItem("codename", formData.poster);
-      router.push("/features");
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  } else {
-    try {
-      const res = await axios
-        .post(
+        );
+        localStorage.setItem("codename", formData.poster);
+        router.push("/features");
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    } else {
+      try {
+        const res = await axios.post(
           "/foodnouvaeu/api/add",
           {
             name: formData.name,
@@ -111,16 +101,11 @@ const handleSubmit = async () => {
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
-        )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      router.push("/features");
-    } catch (error) {
-      console.error("Error: ", error);
+        );
+        router.push("/features");
+      } catch (error) {
+        console.error("Error: ", error);
+      }
     }
   }
 };
@@ -128,22 +113,18 @@ const handleSubmit = async () => {
 
 <template>
   <main
-    class="flex min-[320px]:pt-20 md:h-screen lg:h-auto items-center justify-center bg-orange-100"
+    class="flex xs:pt-20 xs:w-screen md:w-auto lg:h-auto items-center justify-center bg-orange-100"
   >
-    <section class="mb-4 rounded-xl bg-white shadow-xl" id="addRecipes">
-      <form
-        class="p-5"
-        @submit.prevent="handleSubmit"
-        enctype="multipart/form-data"
-      >
+    <section
+      class="mb-4 rounded-xl bg-white shadow-xl xs:w-full md:w-9/12 lg:w-5/12 2xl:w-4/12"
+    >
+      <form class="p-5 w-full" @submit.prevent="handleSubmit" novalidate>
         <fieldset
           class="flex flex-col gap-2 rounded-md border-2 border-orange-500 px-3 py-5"
         >
-          <legend class="welcomeMessage min-[320px]:text-3xl">
-            Your Recipe
-          </legend>
-          <p class="text-end text-red-500" v-if="allRequired">
-            All fields are required.
+          <legend class="welcomeMessage xs:text-3xl">Your Recipe</legend>
+          <p class="text-end text-red-500 text-xs" v-show="allRequired">
+            All fields are required. Except Images.
           </p>
           <label>
             <p>Recipe Name:</p>

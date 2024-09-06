@@ -68,10 +68,10 @@ html {
   }
   fieldset input,
   fieldset select {
-    @apply p-2;
+    @apply p-2 w-full;
   }
   textarea {
-    @apply resize-none p-1;
+    @apply resize-none p-1 w-full;
   }
 
   /* ======================= @ Cellphone */
