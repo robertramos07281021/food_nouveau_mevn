@@ -93,7 +93,6 @@ const handleSubmitEmail = async () => {
 
   try {
     const addEmail = await axios.post("/foodnouvaeu/api/addemail", newEmail);
-    console.log(addEmail);
     window.location.assign("/?thankyou=true&newsletter=false");
   } catch (error) {
     if (error.response.data.message == "no email") {
