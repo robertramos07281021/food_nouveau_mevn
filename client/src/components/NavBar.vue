@@ -24,7 +24,7 @@ window.addEventListener("resize", function () {
 <template>
   <nav :class="[`navBar`, 'w-full']">
     <div class="navMenu z-50 w-full">
-      <div class="navBarLogo z-50 w-80">
+      <div class="navBarLogo z-50 md:w-80 xs:w-full">
         <RouterLink to="/" class="myLogo">
           <span class="pr-2">Food</span>
           <span class="text-white">Nouveau</span>
