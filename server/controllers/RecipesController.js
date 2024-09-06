@@ -167,8 +167,19 @@ export default class API {
       return res.status(400).json({ message: "Recipes not exists." });
     }
     try {
+      cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+      });
+
+      const newArray = findRecipe.image.split("/");
+      await cloudinary.uploader.destroy(
+        newArray[7].slice(0, newArray[7].indexOf("."))
+      );
+
       await findRecipe.deleteOne();
-      fs.unlinkSync("./uploads/" + findRecipe.image);
+
       res.status(200).json({ success: "Recipe deleted." });
     } catch (error) {
       return res.status(500).json({ error: error.message });
