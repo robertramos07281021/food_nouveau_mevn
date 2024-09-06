@@ -9,7 +9,7 @@ import assetsRouter from "./routes/assetsRouter.js";
 
 const app = express();
 const publicPath = path.join(path.resolve(), "../client/public");
-const distPath = path.join(path.resolve(), "../client/dist/.vite");
+const distPath = path.join(path.resolve(), "../client/dist");
 const assetsPath = path.join(path.resolve(), "../client/src/assets");
 
 dotenv.config();
