@@ -3,7 +3,7 @@
     class="flex min-h-screen w-full flex-col items-center justify-center bg-orange-100"
     id="category"
   >
-    <div class="absolute z-10 mb-5 pl-8" id="back_button">
+    <div class="fixed z-10 xs:left-5 xs:top-20 md:top-1 md:left-0 lg:left-4">
       <BackButton v-if="!backToAllFeatures && !backToFeatures" :to="`/`" />
       <BackButton v-if="backToAllFeatures" :to="`/allfeatures`" />
       <BackButton v-if="backToFeatures" :to="`/features`" />
@@ -15,7 +15,7 @@
       <header class="grid gap-2" id="mealHeader">
         <div id="headerFirstDiv" class="relative">
           <img
-            :src="`/uploads/${meal.meal.image}`"
+            :src="meal.meal.image"
             alt="Meal Picture"
             class="w-full"
             id="headerImg"
@@ -95,7 +95,7 @@
       class="fixed bottom-20 right-3 flex flex-col gap-5"
       v-if="thisIsYourRecipe"
     >
-      <RouterLink :to="`/updaterecipe?id=${meal.meal._id}?${query.backTo()}`">
+      <RouterLink :to="`/updaterecipe?id=${meal.meal._id}&${query.backTo()}`">
         <i
           class="pi pi-pen-to-square crudButton rounded-full bg-green-500 py-3 px-4 text-2xl shadow-[0px_0px_4px_4px_rgba(0,0,0,0.3)] transition duration-200 ease-in hover:scale-125"
         ></i>
@@ -149,7 +149,6 @@ onMounted(async () => {
   try {
     const res = await axios.get(`/foodnouvaeu/api/${id}`);
     meal.meal = res.data;
-    console.log(res.data);
   } catch (error) {
     console.error("Error: ", error);
   }

@@ -32,7 +32,9 @@
       <div
         class="flex h-full flex-col items-center justify-center gap-5 rounded-b-xl bg-white"
       >
-        <p class="font-semibold min-[320px]:text-sm lg:text-base xl:text-lg">
+        <p
+          class="font-semibold xs:text-sm lg:text-base xl:text-lg text-center lg:px-10"
+        >
           An email will be sent to you everyweek for more updates.
         </p>
         <form

@@ -84,30 +84,37 @@ function uploadFile(event) {
 const codename = localStorage.getItem("codename");
 const required = ref(false);
 
+const isUpdate = ref(false);
+
 const handleUpdate = async () => {
+  const newImage = ref(null);
+  if (!formImage) {
+    newImage.value = form.image;
+  } else {
+    newImage.value = formImage.value;
+  }
   const updateRecipe = {
     name: form.name,
     country: form.country,
     category: form.category,
     ingredients: form.ingredients,
     instructions: form.instructions,
-    image: formImage.value,
+    image: newImage.value,
     poster: form.poster,
   };
-
   if (
     !form.name ||
     !form.country ||
     !form.category ||
     !form.ingredients ||
-    !form.instructions ||
-    !form.image
+    !form.instructions
   ) {
     required.value = true;
   } else {
     required.value = false;
     if (Boolean(codename) && codename == form.poster) {
       try {
+        isUpdate.value = true;
         const update = await axios.patch(
           `/foodnouvaeu/api/update/${recipeId}`,
           updateRecipe,
@@ -115,7 +122,7 @@ const handleUpdate = async () => {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
-        router.push(`/yourrecipe/${recipeId}`);
+        router.push(`/yourrecipe?id=${recipeId}&${query.backTo()}`);
       } catch (error) {
         console.log(error);
       }
@@ -127,27 +134,37 @@ const handleUpdate = async () => {
 </script>
 
 <template>
-  <main class="flex min-h-screen items-center justify-center bg-orange-100">
-    <div class="updateBackButton z-10 mb-5 pl-8">
-      <BackButton :to="`/yourrecipe?id=${recipeId}?${query.backTo()}`" />
+  <div
+    class="fixed w-screen h-screen bg-white top-0 left-0 flex items-center justify-center"
+    v-show="isUpdate"
+  >
+    <i
+      class="bi bi-egg-fried text-5xl absolute text-orange-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 after:animate-spin-slow after:absolute after:border-8 after:w-20 after:h-20 after:left-0 after:top-0 px-4 pt-3 after:rounded-full after:border-dotted after:border-orange-500"
+    ></i>
+  </div>
+
+  <main
+    class="flex lg:min-h-screen w-full xs:pt-28 m:pt-0 items-center justify-center bg-orange-100"
+  >
+    <div class="fixed z-10 xs:left-5 xs:top-20 md:top-1 md:left-0 lg:left-4">
+      <BackButton :to="`/yourrecipe?id=${recipeId}&${query.backTo()}`" />
     </div>
     <section
-      class="mb-4 mt-20 min-h-[600px] rounded-xl bg-white shadow-xl"
-      id="addRecipes"
+      class="xs:my-10 md:my-16 lg:my-0 lg:mb-10 rounded-xl xs:w-full lg:w-5/12 2xl:w-4/12 bg-white shadow-xl"
     >
-      <form class="p-5" @submit.prevent="handleUpdate">
+      <form class="p-5 w-full" @submit.prevent="handleUpdate" novalidate>
         <fieldset
-          class="flex flex-col gap-2 rounded-md border-2 border-orange-500 px-3 py-5"
+          class="flex flex-col w-full gap-2 rounded-md border-2 border-orange-500 px-3 py-5"
         >
           <legend class="welcomeMessage">Your Recipe</legend>
-          <p class="text-end text-red-500" v-if="required">
-            All fields are required.
+          <p v-show="required" class="text-end text-xs text-red-500">
+            All fields are required. Except image.
           </p>
-          <label>
+          <label class="w-full">
             <p>Recipe Name:</p>
             <input type="text" required v-model="form.name" />
           </label>
-          <label>
+          <label class="w-full">
             <p>Country:</p>
             <input type="text" required v-model="form.country" />
           </label>
@@ -183,12 +200,14 @@ const handleUpdate = async () => {
             ></textarea>
           </label>
 
-          <label>
+          <label class="w-full">
             <p>Image URL:</p>
 
-            <pre class="border-2 border-black p-2 rounded-md mb-2">{{
-              form.image
-            }}</pre>
+            <p
+              class="border-2 rounded border-black p-2 mb-2 xs:w-[322px] md:w-full lg:w-[466px] 2xl:w-[459px] overflow-hidden text-wrap truncate"
+            >
+              {{ form.image }}
+            </p>
             <input type="file" @input="uploadFile" />
           </label>
           <button

@@ -68,14 +68,16 @@ onMounted(async () => {
         {{ category.category.strCategory }}
       </h1>
     </div>
-    <div class="absolute mb-5 pl-8" id="back_button">
+    <div class="fixed z-10 xs:left-5 xs:top-20 md:top-1 md:left-0 lg:left-4">
       <BackButton to="/" />
     </div>
     <div class="homeSection rounded-xl bg-white shadow-xl">
       <p class="homeDescription px-10 pb-10 text-justify indent-6">
         {{ category.category.strCategoryDescription }}
       </p>
-      <div class="randomMenuDiv flex flex-wrap justify-center">
+      <div
+        class="xs:gap-2 md:gap-5 lg:gap-5 lg:px-5 flex flex-wrap justify-center"
+      >
         <MealCard
           v-for="meal in selectedCategory.meals"
           :key="meal.idMeal"

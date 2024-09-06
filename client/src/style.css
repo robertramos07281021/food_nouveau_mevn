@@ -64,7 +64,7 @@ html {
   fieldset input,
   fieldset select,
   fieldset textarea {
-    @apply w-full rounded-md ring-2 ring-black focus:outline-none focus:ring-orange-500;
+    @apply rounded ring-2 ring-black focus:outline-none focus:ring-orange-500;
   }
   fieldset input,
   fieldset select {
@@ -215,7 +215,7 @@ html {
     }
 
     .navUl {
-      @apply gap-5;
+      @apply gap-1 w-full;
     }
 
     .myLogo {
@@ -274,9 +274,6 @@ html {
     .backButton {
       @apply h-16 w-16 text-4xl;
     }
-    #back_button {
-      @apply left-5 top-48;
-    }
 
     .mealHeaderTitle {
       @apply text-4xl;
@@ -325,7 +322,7 @@ html {
     }
 
     .navUl {
-      @apply gap-12 text-2xl;
+      @apply gap-12 text-2xl w-auto;
     }
     .navMenu {
       @apply w-full px-14;

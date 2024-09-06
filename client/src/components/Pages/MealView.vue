@@ -1,6 +1,6 @@
 <template>
   <main class="w-full flex flex-col items-center justify-center bg-orange-100" id="category" >
-    <div class=" mb-5 pl-8 absolute z-10" id="back_button">
+    <div class="fixed z-10 xs:left-5 xs:top-20 md:top-1 md:left-0 lg:left-4">
       <BackButton v-if="backToCategory && !backToRecipe && !backToFeatures" :to="`${backToCategory}&id=${categoryId}`"/>
       <BackButton v-if="!backToCategory && !backToRecipe && !backToFeatures" :to="`/`"/>
       <BackButton v-if="!backToCategory && backToRecipe && !backToFeatures" :to="`/recipes`"/>

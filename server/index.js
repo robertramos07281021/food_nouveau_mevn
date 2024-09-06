@@ -10,7 +10,6 @@ import assetsRouter from "./routes/assetsRouter.js";
 const app = express();
 const publicPath = path.join(path.resolve(), "../client/public");
 const distPath = path.join(path.resolve(), "../client/dist");
-const serverPath = path.join(path.resolve(), "../server/uploads");
 const assetsPath = path.join(path.resolve(), "../client/src/assets");
 
 dotenv.config();
@@ -29,7 +28,6 @@ if (process.env.NODE_ENV === "production") {
   app.use("/src", assetsRouter);
 }
 app.use("/assets", express.static(assetsPath));
-app.use("/uploads", express.static(serverPath));
 
 app.use("/foodnouvaeu/api", RecipesRouter);
 app.use(homeRouter);

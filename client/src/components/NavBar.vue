@@ -24,7 +24,7 @@ window.addEventListener("resize", function () {
 <template>
   <nav :class="[`navBar`, 'w-full']">
     <div class="navMenu z-50 w-full">
-      <div class="navBarLogo z-50">
+      <div class="navBarLogo z-50 w-80">
         <RouterLink to="/" class="myLogo">
           <span class="pr-2">Food</span>
           <span class="text-white">Nouveau</span>
@@ -38,18 +38,19 @@ window.addEventListener("resize", function () {
         :class="[
           menuBar ? `max-[767px]:top-14` : `max-[767px]:-top-36`,
           `navUl`,
+          ,
         ]"
       >
-        <a href="/">
+        <a href="/" class="xs:w-full lg:w-auto text-center">
           <li>Home</li>
         </a>
-        <a href="/recipes">
+        <a href="/recipes" class="xs:w-full lg:w-auto text-center">
           <li>Recipes</li>
         </a>
-        <a href="/features">
+        <a href="/features" class="xs:w-full lg:w-auto text-center">
           <li>Features</li>
         </a>
-        <a href="/addrecipes">
+        <a href="/addrecipes" class="xs:w-full lg:w-auto text-center">
           <li>Add Recipes</li>
         </a>
       </ul>

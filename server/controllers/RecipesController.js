@@ -1,24 +1,54 @@
 import Recipe from "../models/Recipe.js";
 import Email from "../models/Email.js";
 import fs from "fs";
+import { v2 as cloudinary } from "cloudinary";
 
 export default class API {
   //createNewRecipe
   static async createNewRecipe(req, res) {
     const { name, country, category, ingredients, instructions, poster } =
       req.body;
-    const image = req.file.filename;
+
+    const multerImage = req.file;
+    let image = "";
     if (
       !name ||
       !country ||
       !category ||
       !ingredients ||
       !instructions ||
-      !image ||
       !poster
     ) {
       return res.status(400).json({ message: `All fields are required` });
     }
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET,
+    });
+    const uploadResult = await cloudinary.uploader.upload(multerImage.path, {
+      public_id: multerImage.originalname.slice(
+        0,
+        multerImage.originalname.indexOf(".")
+      ),
+    });
+    const optimizeUrl = cloudinary.url(
+      multerImage.originalname.slice(0, multerImage.originalname.indexOf(".")),
+      {
+        fetch_format: "auto",
+        quality: "auto",
+      }
+    );
+    const autoCropUrl = cloudinary.url(
+      multerImage.originalname.slice(0, multerImage.originalname.indexOf(".")),
+      {
+        crop: "auto",
+        gravity: "auto",
+        width: 500,
+        height: 500,
+      }
+    );
+
     try {
       const recipe = await Recipe.create({
         name,
@@ -26,7 +56,7 @@ export default class API {
         category,
         ingredients,
         instructions,
-        image,
+        image: uploadResult.secure_url,
         poster,
       });
       return res.status(200).json({ success: "Recipes created.", recipe });
@@ -57,35 +87,65 @@ export default class API {
       return res.status(400).json({ message: "Recipes not exists." });
     }
 
-    let image = "";
-    if (req.file) {
-      image = req.file.filename;
-      try {
-        fs.unlinkSync("./uploads/" + findRecipe.image);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      image = findRecipe.image;
-    }
-
     if (!name || !country || !category || !ingredients || !instructions) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    try {
-      await findRecipe.updateOne({
-        name,
-        country,
-        category,
-        ingredients,
-        instructions,
-        image,
+    let image = "";
+    if (req.file) {
+      cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
       });
-      return res.status(200).json({ success: "Recipe updated." });
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
+      const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+        public_id: req.file.originalname.slice(
+          0,
+          req.file.originalname.indexOf(".")
+        ),
+      });
+      const optimizeUrl = cloudinary.url(
+        req.file.originalname.slice(0, req.file.originalname.indexOf(".")),
+        {
+          fetch_format: "auto",
+          quality: "auto",
+        }
+      );
+      const autoCropUrl = cloudinary.url(
+        req.file.originalname.slice(0, req.file.originalname.indexOf(".")),
+        {
+          crop: "auto",
+          gravity: "auto",
+          width: 500,
+          height: 500,
+        }
+      );
+
+      const newArray = findRecipe.image.split("/");
+      await cloudinary.uploader.destroy(
+        newArray[7].slice(0, newArray[7].indexOf("."))
+      );
+
+      image = uploadResult.secure_url;
+    } else {
+      image = findRecipe.image;
     }
+
+    setTimeout(async () => {
+      try {
+        await findRecipe.updateOne({
+          name,
+          country,
+          category,
+          ingredients,
+          instructions,
+          image,
+        });
+        return res.status(200).json({ success: "Recipe updated." });
+      } catch (error) {
+        return res.status(500).json({ error: error.message });
+      }
+    }, 500);
   }
 
   //findRecipe

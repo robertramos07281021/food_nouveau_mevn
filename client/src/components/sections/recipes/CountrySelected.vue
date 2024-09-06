@@ -8,7 +8,7 @@
         class="h-32 w-52"
       />
     </div>
-    <div class="gapSize flex flex-wrap justify-center pt-10">
+    <div class="gap-2 flex flex-wrap justify-center pt-10">
       <MealCard
         v-for="meal in selected.country"
         :key="meal.idMeal"
