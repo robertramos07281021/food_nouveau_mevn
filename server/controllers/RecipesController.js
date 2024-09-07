@@ -1,7 +1,22 @@
 import Recipe from "../models/Recipe.js";
 import Email from "../models/Email.js";
-import fs from "fs";
 import { v2 as cloudinary } from "cloudinary";
+
+function newName(originalname) {
+  let imageName = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let counter = 0;
+  while (counter < 8) {
+    imageName += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+    counter += 1;
+  }
+  imageName += "_";
+  imageName += originalname;
+  return imageName;
+}
 
 export default class API {
   //createNewRecipe
@@ -27,27 +42,20 @@ export default class API {
       api_secret: process.env.API_SECRET,
     });
     const uploadResult = await cloudinary.uploader.upload(multerImage.path, {
-      public_id: multerImage.originalname.slice(
-        0,
-        multerImage.originalname.indexOf(".")
+      public_id: newName(
+        multerImage.originalname.slice(0, multerImage.originalname.indexOf("."))
       ),
     });
-    const optimizeUrl = cloudinary.url(
-      multerImage.originalname.slice(0, multerImage.originalname.indexOf(".")),
-      {
-        fetch_format: "auto",
-        quality: "auto",
-      }
-    );
-    const autoCropUrl = cloudinary.url(
-      multerImage.originalname.slice(0, multerImage.originalname.indexOf(".")),
-      {
-        crop: "auto",
-        gravity: "auto",
-        width: 500,
-        height: 500,
-      }
-    );
+    const optimizeUrl = cloudinary.url(uploadResult.public_id, {
+      fetch_format: "auto",
+      quality: "auto",
+    });
+    const autoCropUrl = cloudinary.url(uploadResult.public_id, {
+      crop: "auto",
+      gravity: "auto",
+      width: 500,
+      height: 500,
+    });
 
     try {
       const recipe = await Recipe.create({
@@ -90,7 +98,6 @@ export default class API {
     if (!name || !country || !category || !ingredients || !instructions) {
       return res.status(400).json({ message: "All fields are required." });
     }
-
     let image = "";
     if (req.file) {
       cloudinary.config({
@@ -99,27 +106,20 @@ export default class API {
         api_secret: process.env.API_SECRET,
       });
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-        public_id: req.file.originalname.slice(
-          0,
-          req.file.originalname.indexOf(".")
+        public_id: newName(
+          req.file.originalname.slice(0, req.file.originalname.indexOf("."))
         ),
       });
-      const optimizeUrl = cloudinary.url(
-        req.file.originalname.slice(0, req.file.originalname.indexOf(".")),
-        {
-          fetch_format: "auto",
-          quality: "auto",
-        }
-      );
-      const autoCropUrl = cloudinary.url(
-        req.file.originalname.slice(0, req.file.originalname.indexOf(".")),
-        {
-          crop: "auto",
-          gravity: "auto",
-          width: 500,
-          height: 500,
-        }
-      );
+      const optimizeUrl = cloudinary.url(uploadResult.public_id, {
+        fetch_format: "auto",
+        quality: "auto",
+      });
+      const autoCropUrl = cloudinary.url(uploadResult.public_id, {
+        crop: "auto",
+        gravity: "auto",
+        width: 500,
+        height: 500,
+      });
 
       const newArray = findRecipe.image.split("/");
       await cloudinary.uploader.destroy(
